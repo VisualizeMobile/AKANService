@@ -9,7 +9,7 @@ THIS_SCRIPT_PATH="$(dirname $0)"
 FILES_LIST="AnoAtual AnoAnterior"
 
 function prepare_enviroment {
-	[[ ! -f "$WORK_DIR/" ]] mkdir $WORK_DIR/
+	[[ ! -f "$WORK_DIR/" ]] && mkdir $WORK_DIR/
 	rm -f $WORK_DIR/*
 
 	for FILE in $FILES_LIST
