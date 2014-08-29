@@ -32,21 +32,13 @@ function prepare_enviroment {
 		echo -e "\n >>>> Converting XML from UTF-16 to UTF-8 (File $FILE)\n"
 		iconv -f UTF-16 -t UTF-8 $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
 		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
-		sed -e '/utf-16/{s//utf-8/;:a' -e '$!N;$!ba' -e '}' $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
-		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
+		perl -pi -e '!$x && s/utf-16/utf-8/ && ($x=1)' $WORK_DIR/$FILE.xml
 
 		if [[ "$?" -ne "0" ]]
 		then
 			exit -1
 		fi
 	done
-
-	# echo -e "\n >>>> Transforming to CSV format\n"
-	# xml2csv --input "$WORK_DIR/AnoAtual.xml" --output "$WORK_DIR/AnoAtual.csv" --tag "DESPESA"
-	# if [[ "$?" -ne "0" ]]
-	# then
-	# 	exit -1
-	# fi
 }
 
 function prepare_db {
@@ -84,12 +76,6 @@ function prepare_db {
 }
 
 function load_despesa_table {
-	# QUERY="LOAD DATA LOCAL INFILE '$WORK_DIR/AnoAtual.csv' 
-	# INTO TABLE despesa
-	# CHARACTER SET utf8 
-	# FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' 
-	# IGNORE 1 LINES
-	# "
 
 	for FILE in $FILES_LIST
 	do

@@ -32,8 +32,7 @@ function prepare_enviroment {
 		echo -e "\n >>>> Converting XML from UTF-16 to UTF-8 (File $FILE)\n"
 		iconv -f UTF-16 -t UTF-8 $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
 		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
-		sed -e '/utf-16/{s//utf-8/;:a' -e '$!N;$!ba' -e '}' $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
-		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
+		perl -pi -e '!$x && s/utf-16/utf-8/ && ($x=1)' $WORK_DIR/$FILE.xml
 
 		if [[ "$?" -ne "0" ]]
 		then
