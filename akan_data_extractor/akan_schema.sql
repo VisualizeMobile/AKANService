@@ -85,7 +85,7 @@ CREATE TABLE cota_tmp (
   valor decimal(13,2) DEFAULT NULL,
   versaoUpdate int(11) DEFAULT NULL,
   PRIMARY KEY (idCota),
-  FOREIGN KEY (idParlamentar) REFERENCES parlamentar(idParlamentar)
+  FOREIGN KEY (idParlamentar) REFERENCES parlamentar_tmp(idParlamentar)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -9,7 +9,7 @@ THIS_SCRIPT_PATH="$(dirname $0)"
 FILES_LIST="AnoAtual AnoAnterior"
 
 function prepare_enviroment {
-	[[ ! -f "$WORK_DIR/" ]] && mkdir $WORK_DIR/
+	[[ ! -d "$WORK_DIR/" ]] && mkdir $WORK_DIR/
 	rm -f $WORK_DIR/*
 
 	for FILE in $FILES_LIST
@@ -32,7 +32,7 @@ function prepare_enviroment {
 		echo -e "\n >>>> Converting XML from UTF-16 to UTF-8 (File $FILE)\n"
 		iconv -f UTF-16 -t UTF-8 $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
 		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
-		sed 's/utf-16/utf-8/' $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
+		sed -e '/utf-16/{s//utf-8/;:a' -e '$!N;$!ba' -e '}' $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
 		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
 
 		if [[ "$?" -ne "0" ]]
