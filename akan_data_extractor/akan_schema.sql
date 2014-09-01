@@ -108,6 +108,19 @@ BEGIN
     RETURN COALESCE(somaCotaAtual, 0);
 END $$ 
 
+DROP FUNCTION IF EXISTS AnoLegislaturaAtual$$
+CREATE FUNCTION AnoLegislaturaAtual() RETURNS INT(11)
+NOT DETERMINISTIC
+BEGIN 
+DECLARE anoLegislaturaAtual INT(11);
+DECLARE anoAtual INT(11);	
+
+SET anoAtual = YEAR(NOW());
+SET anoLegislaturaAtual =  2011 + (4 * FLOOR(((anoAtual - 2011) / 4)));
+
+RETURN anoLegislaturaAtual;
+END $$ 
+
 DROP PROCEDURE IF EXISTS CarregaTabelaParlamentar$$
 CREATE PROCEDURE CarregaTabelaParlamentar() 
 BEGIN 
@@ -128,7 +141,8 @@ BEGIN
             0 AS valor
         FROM despesa
         WHERE 
-            ideCadastro IS NOT NULL 
+            nuLegislatura = AnoLegislaturaAtual()
+            AND ideCadastro IS NOT NULL 
             AND ideCadastro != 0
         GROUP BY ideCadastro
         ORDER BY valor DESC 
@@ -170,7 +184,8 @@ BEGIN
             0 AS valor
         FROM despesa
         WHERE 
-            ideCadastro IS NOT NULL 
+            nuLegislatura = AnoLegislaturaAtual()
+            AND ideCadastro IS NOT NULL 
             AND ideCadastro != 0
         GROUP BY ideCadastro
         ORDER BY valor DESC 
@@ -215,7 +230,8 @@ BEGIN
         0
     FROM despesa
     WHERE 
-        ideCadastro IS NOT NULL
+        nuLegislatura = AnoLegislaturaAtual()
+        AND ideCadastro IS NOT NULL 
         AND ideCadastro != 0
     GROUP BY idCota
     );
@@ -244,7 +260,8 @@ BEGIN
         0
     FROM despesa
     WHERE 
-        ideCadastro IS NOT NULL
+        nuLegislatura = AnoLegislaturaAtual()
+        AND ideCadastro IS NOT NULL 
         AND ideCadastro != 0
     GROUP BY idCota
     );

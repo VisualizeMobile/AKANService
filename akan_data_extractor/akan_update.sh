@@ -6,7 +6,7 @@ DATA_DIR=$3
 [[ ! "$DATA_DIR" ]] && DATA_DIR="$HOME"
 WORK_DIR="$DATA_DIR/akan_files"
 THIS_SCRIPT_PATH="$(dirname $0)"
-FILES_LIST="AnoAtual AnoAnterior"
+FILES_LIST="AnoAtual AnoAnterior AnosAnteriores"
 
 function prepare_enviroment {
 	[[ ! -d "$WORK_DIR/" ]] && mkdir $WORK_DIR/
