@@ -26,18 +26,13 @@ function prepare_enviroment {
 #	echo -e "\n >>>> Unziping data\n"
 #	unzip -o -d $WORK_DIR $WORK_DIR/\*.zip
 
-    if [[ ! -f "$THIS_SCRIPT_PATH/substitute_first.py" ]]
-	then
-		echo "ERROR: File $THIS_SCRIPT_PATH/substitute_first.py don't exist"
-		exit -1
-	fi
+    
 	for FILE in $FILES_LIST
 	do
 		echo -e "\n >>>> Converting XML from UTF-16 to UTF-8 (File $FILE)\n"
 		iconv -f UTF-16 -t UTF-8 $WORK_DIR/$FILE.xml > $WORK_DIR/$FILE.xml.bak
 		mv -f $WORK_DIR/$FILE.xml.bak $WORK_DIR/$FILE.xml
-		#perl -pi -e '!$x && s/utf-16/utf-8/ && ($x=1)' $WORK_DIR/$FILE.xml
-        $THIS_SCRIPT_PATH/substitute_first.py $WORK_DIR/$FILE.xml utf-16 utf-8
+        perl -i -pe 'BEGIN {$/ = \1024} s/utf-16/utf-8/ .. undef' $WORK_DIR/$FILE.xml
 
 		if [[ "$?" -ne "0" ]]
 		then
