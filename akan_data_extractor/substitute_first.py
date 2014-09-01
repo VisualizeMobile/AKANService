@@ -15,6 +15,6 @@ if __name__ == '__main__':
     from_string = sys.argv[2]
     to_string = sys.argv[3]
     
-    for line in fileinput.input(file_path, inplace=True):
+    for line in fileinput.input(file_path, inplace=True, bufsize=1):
         print line.replace(from_string, to_string, 1)
         break
