@@ -141,7 +141,7 @@ BEGIN
             0 AS valor
         FROM despesa
         WHERE 
-            nuLegislatura = AnoLegislaturaAtual()
+            numAno >= AnoLegislaturaAtual()
             AND ideCadastro IS NOT NULL 
             AND ideCadastro != 0
         GROUP BY ideCadastro
@@ -184,7 +184,7 @@ BEGIN
             0 AS valor
         FROM despesa
         WHERE 
-            nuLegislatura = AnoLegislaturaAtual()
+            numAno >= AnoLegislaturaAtual()
             AND ideCadastro IS NOT NULL 
             AND ideCadastro != 0
         GROUP BY ideCadastro
@@ -230,7 +230,7 @@ BEGIN
         0
     FROM despesa
     WHERE 
-        nuLegislatura = AnoLegislaturaAtual()
+        numAno >= AnoLegislaturaAtual()
         AND ideCadastro IS NOT NULL 
         AND ideCadastro != 0
     GROUP BY idCota
@@ -260,7 +260,7 @@ BEGIN
         0
     FROM despesa
     WHERE 
-        nuLegislatura = AnoLegislaturaAtual()
+        numAno >= AnoLegislaturaAtual()
         AND ideCadastro IS NOT NULL 
         AND ideCadastro != 0
     GROUP BY idCota
