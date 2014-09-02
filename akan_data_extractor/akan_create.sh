@@ -9,23 +9,22 @@ THIS_SCRIPT_PATH="$(dirname $0)"
 FILES_LIST="AnoAtual AnoAnterior AnosAnteriores"
 
 function prepare_enviroment {
-#	[[ ! -d "$WORK_DIR/" ]] && mkdir $WORK_DIR/
-#	rm -f $WORK_DIR/*
-#
-#	for FILE in $FILES_LIST
-#	do
-#		echo -e "\n >>>> Downloading data (File $FILE)\n"
-#		wget -P $WORK_DIR/ http://www.camara.gov.br/cotas/$FILE.zip	
-#		if [[ ! -f "$WORK_DIR/$FILE.zip" ]]
-#		then
-#			echo "ERROR: File $WORK_DIR/$FILE.zip don't exist"
-#			exit -1
-#		fi
-#	done
-#
-#	echo -e "\n >>>> Unziping data\n"
-#	unzip -o -d $WORK_DIR $WORK_DIR/\*.zip
+	[[ ! -d "$WORK_DIR/" ]] && mkdir $WORK_DIR/
+	rm -f $WORK_DIR/*
 
+	for FILE in $FILES_LIST
+	do
+		echo -e "\n >>>> Downloading data (File $FILE)\n"
+		wget -P $WORK_DIR/ http://www.camara.gov.br/cotas/$FILE.zip	
+		if [[ ! -f "$WORK_DIR/$FILE.zip" ]]
+		then
+			echo "ERROR: File $WORK_DIR/$FILE.zip don't exist"
+			exit -1
+		fi
+	done
+
+	echo -e "\n >>>> Unziping data\n"
+	unzip -o -d $WORK_DIR $WORK_DIR/\*.zip
     
 	for FILE in $FILES_LIST
 	do
