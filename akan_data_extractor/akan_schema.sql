@@ -35,7 +35,9 @@ CREATE TABLE despesa (
   numRessarcimento int(11) DEFAULT NULL,
   ideCadastro int(11) DEFAULT NULL,
   idDespesa int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (idDespesa)
+  PRIMARY KEY (idDespesa),
+  INDEX `idx_numAno` (numAno),
+  INDEX `idx_ideCadastro` (ideCadastro)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS parlamentar;
@@ -46,7 +48,8 @@ CREATE TABLE parlamentar (
   ufParlamentar varchar(45) NOT NULL,
   valor decimal(13,2) DEFAULT NULL,
   ranking int(11) DEFAULT NULL,
-  PRIMARY KEY (idParlamentar)
+  PRIMARY KEY (idParlamentar),
+  INDEX `idx_ranking` (ranking)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS parlamentar_tmp;
@@ -57,7 +60,8 @@ CREATE TABLE parlamentar_tmp (
   ufParlamentar varchar(45) NOT NULL,
   valor decimal(13,2) DEFAULT NULL,
   ranking int(11) DEFAULT NULL,
-  PRIMARY KEY (idParlamentar)
+  PRIMARY KEY (idParlamentar),
+  INDEX `idx_ranking` (ranking)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS cota;
@@ -71,7 +75,8 @@ CREATE TABLE cota (
   valor decimal(13,2) DEFAULT NULL,
   versaoUpdate int(11) DEFAULT NULL,
   PRIMARY KEY (idCota),
-  FOREIGN KEY (idParlamentar) REFERENCES parlamentar(idParlamentar)
+  FOREIGN KEY (idParlamentar) REFERENCES parlamentar(idParlamentar),
+  INDEX `idx_ano` (ano)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS cota_tmp;
@@ -85,7 +90,8 @@ CREATE TABLE cota_tmp (
   valor decimal(13,2) DEFAULT NULL,
   versaoUpdate int(11) DEFAULT NULL,
   PRIMARY KEY (idCota),
-  FOREIGN KEY (idParlamentar) REFERENCES parlamentar_tmp(idParlamentar)
+  FOREIGN KEY (idParlamentar) REFERENCES parlamentar_tmp(idParlamentar),
+  INDEX `idx_ano` (ano)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;
