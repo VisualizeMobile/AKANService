@@ -146,14 +146,13 @@ function main {
 		echo -e "Usage:\n\t$0 <DB_USER> <DB_PASS> <DATA_DIR>\n\t$0 <DB_USER> <DB_PASS>"
 		exit -1
 	fi
-
-	prepare_enviroment
+    echo -e "\n >>>> Starting job at \"`date`\""
+	#prepare_enviroment
 	prepare_db 
 	load_despesa_table
 	load_parlamentar_table
 	load_cota_table
-
-	echo -e "\n >>>> Finish\n"
+	echo -e "\n >>>> Finishing job at \"`date`\"\n"
 }
 
 main

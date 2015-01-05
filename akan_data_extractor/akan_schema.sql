@@ -237,6 +237,7 @@ BEGIN
     FROM despesa
     WHERE 
         numAno >= AnoLegislaturaAtual()
+        AND numAno < (AnoLegislaturaAtual() + 4)
         AND ideCadastro IS NOT NULL 
         AND ideCadastro != 0
     GROUP BY idCota
@@ -267,6 +268,7 @@ BEGIN
     FROM despesa
     WHERE 
         numAno >= AnoLegislaturaAtual()
+        AND numAno < (AnoLegislaturaAtual() + 4)
         AND ideCadastro IS NOT NULL 
         AND ideCadastro != 0
     GROUP BY idCota
